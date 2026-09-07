@@ -1,8 +1,8 @@
-# CentWhisper 💸
+# CentGuard
 
 **A personal finance copilot that quietly watches your cents so you don't have to.**
 
-CentWhisper is a chat-based personal finance assistant powered by Claude. Instead of clicking
+CentGuard is a chat-based personal finance assistant powered by Claude. Instead of clicking
 through dashboards, you ask questions in plain English — *"How much did I spend on food last
 month?"*, *"Any weird transactions this week?"*, *"What's my savings trend?"* — and Claude
 answers using **your real transaction data**, retrieved live through a custom **MCP (Model
