@@ -164,4 +164,4 @@ your GitHub profile.)
 - [x] Web app (React + FastAPI + MCP)
 - [ ] React Native app (Android/iOS) reusing the same backend API
 - [ ] Swap SQLite for a hosted Postgres (Supabase free tier) if this needs to stay up long-term
-- [ ] Add a spending chart (Recharts) driven by the `monthly_summary` tool
+- [x] Add a spending chart (Recharts) driven by the `monthly_summary` tool
