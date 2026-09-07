@@ -2,6 +2,13 @@
 
 **A personal finance copilot that quietly watches your cents so you don't have to.**
 
+🔗 **Live:** [cent-guard.vercel.app](https://cent-guard.vercel.app)
+🔗 **API:** [centguard-api.onrender.com](https://centguard-api.onrender.com)
+
+> **Note:** The backend runs on Render's free tier, which sleeps after 15 minutes of
+> inactivity. If the demo looks stuck loading the spending chart on first visit, that's
+> the backend waking up — give it 30-60 seconds and refresh.
+
 CentGuard is a chat-based personal finance assistant powered by Claude. Instead of clicking
 through dashboards, you ask questions in plain English — *"How much did I spend on food last
 month?"*, *"Any weird transactions this week?"*, *"What's my savings trend?"* — and Claude
@@ -122,15 +129,37 @@ Visit `http://localhost:5173` and start chatting with CentWhisper.
 
 ## Built with Claude Code
 
-This repo was scaffolded and iterated on using Claude Code — the MCP server, the tool-calling
-loop, and the chat UI were each built as separate agentic sessions, with Claude Code running
-the dev servers and fixing issues as they came up. (Add a couple of screenshots/notes here
-about your actual Claude Code sessions once you've done the build-out — that's a great
-talking point for interviews.)
+This project was built through an iterative, agentic workflow rather than writing
+everything by hand:
+
+- **Scaffolding:** The initial project structure — FastAPI backend, MCP server,
+  React frontend — was planned and scaffolded in a single session, then refined
+  file by file.
+- **Debugging a real breaking change:** Partway through, the MCP Python SDK's
+  `FastMCP` class (v1.x) turned out to have been renamed to `MCPServer` in a
+  major v2 release, with several fields switching from camelCase to snake_case
+  (`inputSchema` → `input_schema`, `isError` → `is_error`). Rather than guessing,
+  the fix involved diagnosing the exact traceback, confirming it against the
+  official migration guide, and patching both the MCP server definition and the
+  Claude tool-calling client to match the new API — a small but realistic example
+  of working with a fast-moving SDK ecosystem.
+- **Deployment troubleshooting:** Getting the backend running on Render's free
+  tier surfaced a real constraint — no shell access on free-tier services — which
+  led to redesigning the database seeding to run automatically on app startup
+  instead of requiring a manual step. This also fixed a latent problem: Render's
+  free tier resets its filesystem on every redeploy, so auto-seeding was the
+  right fix either way, not just a workaround.
+- **End-to-end verification, not just "it compiles":** Every stage — the MCP
+  server's tool schemas, the Claude tool-calling loop, the FastAPI endpoints, and
+  the deployed frontend — was tested with real requests and real output before
+  moving to the next stage, catching issues like double-slash URL bugs and
+  silently-empty files early.
+
+![CentGuard chat demo](docs/screenshots/chat-main.png)
 
 ## Roadmap
 
 - [x] Web app (React + FastAPI + MCP)
 - [ ] React Native app (Android/iOS) reusing the same backend API
 - [ ] Swap SQLite for a hosted Postgres (Supabase free tier) if this needs to stay up long-term
-- [ ] Add a spending chart (Recharts) driven by the `monthly_summary` tool
+- [x] Add a spending chart (Recharts) driven by the `monthly_summary` tool
