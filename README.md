@@ -155,9 +155,7 @@ everything by hand:
   moving to the next stage, catching issues like double-slash URL bugs and
   silently-empty files early.
 
-(Feel free to add a screenshot or two of your actual Claude Code terminal
-sessions here — that's often the most convincing part for someone reviewing
-your GitHub profile.)
+![CentGuard chat demo](docs/screenshots/chat-main.png)
 
 ## Roadmap
 
